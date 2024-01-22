@@ -1,0 +1,134 @@
+\input{yhbeamer.tex}
+
+\def\sverb#1{\texttt{{\color{black}\def\\{\textbackslash}#1}}}
+\let\oldemph=\emph
+\def\emph#1{{\color[rgb]{0,0,1}\oldemph{#1}}}
+\def\defi#1{{\color{blue}#1}}
+\renewcommand{\defi}[2][nil]{{\color{blue}#2}}
+\logo{\includegraphics[width=35pt]{VJTIM.jpg}}
+%\rlap{\includegraphics[width=45pt,viewport=100 506.5 200 506.5]{by-nc-nd-eu.pdf}}}
+\def\Attention{\framebox{\color{blue}\textsc{Attention !}}}
+\def\bellepage{}
+
+{\catcode`\^^M=13 % these lines must end with %
+  \gdef\obeylines{\catcode`\^^M=13 \let^^M\par}%
+  \global\let^^M\par}
+
+\catcode`\@=11
+\begingroup
+\lccode`\~=`\'
+\lowercase{\endgroup
+\renewenvironment{semiverbatim}{%
+  \color{black}\trivlist
+  \item\relax
+    \if@minipage
+    \else
+      \vskip\parskip
+    \fi
+    \leftskip\@totalleftmargin
+    \rightskip\z@skip
+    \parindent\z@
+    \parfillskip\@flushglue
+    \parskip\z@skip
+    \@@par
+    \@tempswafalse
+    \def\par{%
+      \if@tempswa
+        \leavevmode\null\@@par\penalty\interlinepenalty
+    \else
+      \@tempswatrue
+      \ifhmode\@@par\penalty\interlinepenalty\fi
+    \fi}
+    \obeylines
+    \def\verbatim@nolig@list{\do\`\do\,\do\'\do\-}
+    \verbatim@font
+    \let\org@prime~%
+    \everymath\expandafter{\the\everymath
+      \catcode`\'=12 \let~\org@prime}
+    \everydisplay\expandafter{\the\everydisplay
+      \catcode`\'=12 \let~\org@prime}
+    \def\dospecials{\do\ \do\$\do\&%
+     \do\#\do\^\do\_\do\%\do\~\do\`\do\,\do\'\do\-}
+    \let\do\@makeother
+    \dospecials
+    \def\\{\char`\\}
+    \def\{{\char`\{}
+    \def\}{\char`\}}
+    \frenchspacing\@vobeyspaces
+    \everypar \expandafter{\the\everypar \unpenalty}}
+{\endtrivlist}}
+
+\let\utemize\itemize
+\let\endutemize\enditemize
+\let\utem\item
+\let\usection\section
+\let\usubsection\subsection
+\def\usubsubsection#1{}
+\let\niv\quad
+
+%\long\def\note#1{#1}
+\long\def\pres#1{#1}
+\long\def\poly#1{}
+%\let\usection\chapter
+
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{theo}[prop]{Theorem}
+\newtheorem{lemm}[prop]{Lemma}
+\newtheorem{coro}[prop]{Corollary}
+\newtheorem{defien}[prop]{Definition}
+\newtheorem{defis}[prop]{Definitions}
+
+\def\WHITEFRAME{\bgroup
+\setbeamercolor{background canvas}{bg=white}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]{}
+\end{frame}
+\egroup}
+\def\RAPPEL{\setbeamercolor{normal text}{fg=black,bg=black!40}
+
+\setbeamercolor{structure}{fg=black}
+
+\setbeamercolor{alerted text}{fg=red!85!black}
+
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!75}
+
+\definecolor{beetle@other}{RGB}{64,80,127}
+
+\setbeamercolor*{palette primary}{fg=white,bg=beetle@other}
+\setbeamercolor*{palette secondary}{parent=palette primary,use=palette primary,bg=palette primary.bg!95!black}
+\setbeamercolor*{palette tertiary}{parent=palette primary,use=palette primary,bg=palette primary.bg!90!black}
+\setbeamercolor*{palette quaternary}{parent=palette primary,use=palette primary,bg=palette primary.bg!85!black}
+
+\setbeamercolor*{sidebar}{parent=palette primary}
+
+\setbeamercolor*{palette sidebar primary}{fg=white}
+\setbeamercolor*{palette sidebar secondary}{fg=black}
+\setbeamercolor*{palette sidebar tertiary}{fg=white}
+\setbeamercolor*{palette sidebar quaternary}{fg=black}
+
+\setbeamercolor{framesubtitle}{fg=black}
+
+\setbeamercolor*{subtitle}{fg=black}
+
+\setbeamercolor*{block title}{parent=structure}
+\setbeamercolor*{block title alerted}{parent=alerted text}
+\setbeamercolor*{block title example}{parent=example text}
+\setbeamercolor*{block body}{}
+\setbeamercolor*{block body alerted}{}
+\setbeamercolor*{block body example}{}
+
+\setbeamercolor*{titlelike}{parent=structure}
+}
+\def\myindex#1{}
+\let\shaded\relax
+\let\endshaded\relax
+\usepackage{mdframed,bussproofs,comment,attachfile}
+%\usepackage{thsmc}
+\def\partname{Partie}
+\newlength{\cleaplengtha}
+\newlength{\cleaplengthb}
+\def\cphantom#1#2{\settowidth{\cleaplengtha}{#1}%
+\settowidth{\cleaplengthb}{#2}\addtolength{\cleaplengthb}{-\cleaplengtha}\leavevmode\hbox{}\kern.5\cleaplengthb#1\kern.5\cleaplengthb\hbox{}}
+%\newtheorem{definition}{Définition}
+%\newtheorem{definitions}[definition]{Définitions}
+\endinput

@@ -1,0 +1,197 @@
+\section{Les diagrammes commutatifs}
+%\mypart{Les diagrammes commutatifs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche AMS-\LaTeX\ 1/3}
+
+\begin{itemize}
+
+\item À l'aide du package \texttt{amscd} on peut composer des diagrammes commutatifs simples ;
+
+\item on écrit, dans un environnement \texttt{CD}, lui même en mode mathématique, les sommets du diagramme et les flèches (les flèches verticales faisant une ligne à part) ;
+
+\item pour obtenir les flèches on écrira \verb=@>>>=, \verb=@<<<=, \verb=@VVV= et \verb=@AAA=, ou alors \verb=@|= et \verb:@=: pour les égalités horizontale et verticale, et \verb=@.= pour la flèche vide ;
+
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche AMS-\LaTeX\ 2/3}
+
+$$\begin{CD}
+A @<<< B @>>> C @>>> D\\
+@VVV   @AAA   @VVV   @AAA\\
+E @>>> F @>>> G @>>> H
+\end{CD}$$
+
+\begin{verbatim}
+$$\begin{CD}
+A @<<< B @>>> C @>>> D\\
+@VVV   @AAA   @VVV   @AAA\\
+E @>>> F @>>> G @>>> H
+\end{CD}$$
+\end{verbatim}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche AMS-\LaTeX\ 3/3}
+
+\begin{itemize}
+
+\item On peut enrichir les diagrammes commutatifs \og à la AMS-\LaTeX\fg{} en ajoutant des variables au-dessus ou au-dessous des flèches horizontales : 
+
+\texttt{@>\{\textit{au-dessus}\}>\{\textit{au-dessous}\}>} ;
+
+\item de même, on peut ajouter des variables à gauche ou à droite des flèches verticales :
+
+\texttt{@V\{\textit{à gauche}\}V\{\textit{à droite}\}V} ;
+
+\item ni les égalités, ni la flèche vide ne peut être lettrée.
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 1/6}
+
+\begin{itemize}
+
+\item On charge le package \texttt{xy} avec l'option \texttt{all} (et  \texttt{ps} et \texttt{dvips} si on n'est pas sous \emph{pdf\TeX}) ;
+
+\item un diagramme commutatif est écrit dans un élément \verb=\xymatrix= (lui-même dans un environnement mathématique) ;
+
+\item comme dans \texttt{CD} on écrit les sommets, mais les flèches se mettent juste après les sommets \emph{dont elles partent}. La syntaxe est \verb=\ar[.]= où \texttt{.} est \texttt{u} (vers le haut), \texttt{d} (le bas), \texttt{r} (droite), \texttt{l} (gauche) :
+
+$$\xymatrix{
+A \ar[d] & B \ar[l] \ar[r] & C \ar[r] \ar[d] & D \\
+E \ar[r] & F \ar[u] \ar[r] & G \ar[r] & H \ar[u]
+}$$
+
+\begin{verbatim}
+$$\xymatrix{
+A \ar[d] & B \ar[l] \ar[r] & C \ar[r] \ar[d] & D \\
+E \ar[r] & F \ar[u] \ar[r] & G \ar[r] & H \ar[u]}$$
+\end{verbatim}
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 2/6}
+
+\begin{itemize}
+\item Pour ajouter des labels aux flèches, on utilise \verb=^= (au-dessus), \verb=|= (au milieu) et \verb=_= (au-dessous) après la commande \verb=\ar[.]= : $\xymatrix{X \ar[r]^{f}_{g} & Y}$ obtenu par \verb=$\xymatrix{X \ar[r]^{f}_{g} Y}$= ;
+
+\item pour centrer une entrée sur la flèche, écrire un tiret après le chapeau (resp. le souligné ou la barre verticale) : \verb=^-=, \verb=_-=, \verb=|-= ;
+
+\item les flèches diagonales s'obtiennent en mettant dans l'argument optionnel de \verb=\ar= autant de lettres \texttt{u}, \texttt{d}, \texttt{r} et \texttt{l} qu'il y a des pas dans la direction correspondante :
+
+$$\xymatrix{
+A \ar[r] \ar[d] \ar[dr] \ar[drr] \ar[drrr] \ar[drrrr] \ar[drrrrr] &
+B \ar[r] & C \ar[r] & D \ar[r] & E \ar[r] & F \ar[d]\\
+A' \ar[r] & B' \ar[r] & C' \ar[r] & D' \ar[r] & E' \ar[r] & F'
+}$$
+
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 3/6}
+
+\begin{verbatim}
+$$\xymatrix{
+A \ar[r] \ar[d] \ar[dr] \ar[drr] 
+\ar[drrr] \ar[drrrr] \ar[drrrrr] &
+B \ar[r] & C \ar[r] & D \ar[r] & E \ar[r] & F \ar[d]\\
+A' \ar[r] & B' \ar[r] & C' \ar[r] 
+& D' \ar[r] & E' \ar[r] & F'
+}$$
+\end{verbatim}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 4/6}
+
+\begin{itemize}
+\item Les flèches deviennent curvilignes quand on ajoute \verb=@/^/= ou \verb=@/_/= :
+
+$$\xymatrix{
+A \ar[r] \ar[dd] \ar@/^/[ddr] \ar@/^/[ddrr] 
+\ar@/^/[ddrrr] \ar@/^/[ddrrrr] \ar@/^/[ddrrrrr] &
+B \ar[r] & C \ar[r] & D \ar[r] & E \ar[r] & F \ar[dd]\\
+{} & {} & {} & {}& {}\\
+A' \ar[r] & B' \ar[r] & C' \ar[r] & D' \ar[r] & E' \ar[r] & F'
+}$$
+
+\begin{verbatim}
+$$\xymatrix{A \ar[r] \ar[dd] \ar@/^/[ddr] 
+\ar@/^/[ddrr] \ar@/^/[ddrrr] \ar@/^/[ddrrrr] 
+\ar@/^/[ddrrrrr] & B \ar[r] & C \ar[r] & 
+D \ar[r] & E \ar[r] & F \ar[dd]\\
+{} & {} & {} & {}& {}\\ A' \ar[r] & B' \ar[r] 
+& C' \ar[r] & D' \ar[r] & E' \ar[r] & F'}$$
+\end{verbatim}
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 5/6}
+
+\begin{itemize}
+\item Les flèches de différents styles s'obtiennent par \verb:@{=>}: (double flèche), \verb:@{.>}: (flèche pointillée), \verb=@{:>}= (flèche pointillée double), \verb=@{~>}= (flèche ondulée), \verb=@{-->}= (flèche en petits traits), \verb=@{}= (flèche vide) ;
+
+$$\xymatrix{A \ar[r] \ar@{}[dr]|{\circlearrowleft} \ar[d] 
+& B \ar@{.>}[r] \ar[d] & C \ar@{.>}[d]\\
+D \ar[r] & E \ar@{~>}[r] & F}$$
+
+\begin{verbatim}
+$$\xymatrix{A \ar[r] \ar@{}[dr]|{\circlearrowleft} 
+\ar[d] & B \ar@{.>}[r] \ar[d] & C \ar@{.>}[d]\\
+D \ar[r] & E \ar@{~>}[r] & F}$$
+\end{verbatim}
+
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{L'approche XY-pic 6/6}
+
+\begin{itemize}
+\item On peut déplacer les flèches transversalement à l'aide de \verb=@<1ex>= :
+
+$$\xymatrix{A \ar@<.5ex>@/^/[r] \ar@<-.5ex>@/^/[r] \ar@<.5ex>@/_/[d] \ar@<-.5ex>@/_/[d] 
+& B \ar@<.5ex>@/^/[d] \ar@<-.5ex>@/^/[d]\\
+C \ar@<.5ex>@/_/[r] \ar@<-.5ex>@/_/[r] & D}$$
+
+\medskip
+
+\begin{verbatim}
+$$\xymatrix{A \ar@<.5ex>@/^/[r] \ar@<-.5ex>@/^/[r] 
+\ar@<.5ex>@/_/[d] \ar@<-.5ex>@/_/[d] 
+& B \ar@<.5ex>@/^/[d] \ar@<-.5ex>@/^/[d]\\
+C \ar@<.5ex>@/_/[r] \ar@<-.5ex>@/_/[r] & D}$$
+\end{verbatim}
+
+\end{itemize}
+
+\end{frame}
